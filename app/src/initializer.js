@@ -1,7 +1,8 @@
 window._ = require('underscore');
 window.jquery = window.$ = window.jQuery = require('../bower_components/jquery/dist/jquery.min.js');
+var css = require('../css/fonts.less');
 
-export default function init(){
+function init(){
     if(!localStorage.getItem('lang')) {
         localStorage.setItem('lang', 'ko');
     }

@@ -1,6 +1,3 @@
-import initializer from './initializer.js'
-import entry from '../bower_components/entryjs/dist/entry.js'
-
 $(document).ready(() => {
     let initOption = {
         type: 'workspace',
