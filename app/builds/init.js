@@ -46,10 +46,10 @@
 
 	'use strict';
 	
-	window._ = __webpack_require__(1);
-	window.jquery = window.$ = window.jQuery = __webpack_require__(2);
-	var css = __webpack_require__(5);
-	var css = __webpack_require__(32);
+	window._ = __webpack_require__(3);
+	window.jquery = window.$ = window.jQuery = __webpack_require__(4);
+	__webpack_require__(7);
+	__webpack_require__(24);
 	
 	function init() {
 	    if (!localStorage.getItem('lang')) {
@@ -76,7 +76,9 @@
 	init();
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */,
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -1630,7 +1632,7 @@
 
 
 /***/ },
-/* 2 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {"use strict";
@@ -4029,7 +4031,7 @@
 	    });
 	  }), m.fn.size = function () {
 	    return this.length;
-	  }, m.fn.andSelf = m.fn.addBack, "function" == "function" && __webpack_require__(4) && !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	  }, m.fn.andSelf = m.fn.addBack, "function" == "function" && __webpack_require__(6) && !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	    return m;
 	  }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));var ec = a.jQuery,
 	      fc = a.$;return m.noConflict = function (b) {
@@ -4037,10 +4039,10 @@
 	  }, (typeof b === "undefined" ? "undefined" : _typeof(b)) === K && (a.jQuery = a.$ = m), m;
 	});
 	//# sourceMappingURL=jquery.min.map
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
 
 /***/ },
-/* 3 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -4056,7 +4058,7 @@
 
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -4064,16 +4066,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 5 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(6);
+	var content = __webpack_require__(8);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(25)(content, {});
+	var update = __webpack_require__(23)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -4090,21 +4092,21 @@
 	}
 
 /***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(7)();
+	exports = module.exports = __webpack_require__(9)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "@font-face {\n  font-family: 'Nanum Gothic';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(12) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Gothic';\n  font-style: normal;\n  font-weight: 700;\n  src: url(" + __webpack_require__(13) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Gothic';\n  font-style: normal;\n  font-weight: 800;\n  src: url(" + __webpack_require__(14) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Gothic Coding';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(15) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Gothic Coding';\n  font-style: normal;\n  font-weight: 700;\n  src: url(" + __webpack_require__(16) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Myeongjo';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(17) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Myeongjo';\n  font-style: normal;\n  font-weight: 600;\n  src: url(" + __webpack_require__(18) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Myeongjo';\n  font-style: normal;\n  font-weight: 700;\n  src: url(" + __webpack_require__(19) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Pen Script';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(20) + ") format('woff2');\n}\n@font-face {\n  font-family: nanumBarunLight;\n  font-style: normal;\n  font-weight: 300;\n  src: url(" + __webpack_require__(21) + ") format('woff2');\n}\n@font-face {\n  font-family: nanumBarunUltraLight;\n  font-style: normal;\n  font-weight: 200;\n  src: url(" + __webpack_require__(22) + ") format('woff2');\n}\n@font-face {\n  font-family: nanumBarunRegular;\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(23) + ") format('woff2');\n}\n@font-face {\n  font-family: nanumBarunBold;\n  font-style: normal;\n  font-weight: 700;\n  src: url(" + __webpack_require__(24) + ") format('woff2');\n}\n", ""]);
+	exports.push([module.id, "@font-face {\n  font-family: 'Nanum Gothic';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(10) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Gothic';\n  font-style: normal;\n  font-weight: 700;\n  src: url(" + __webpack_require__(11) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Gothic';\n  font-style: normal;\n  font-weight: 800;\n  src: url(" + __webpack_require__(12) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Gothic Coding';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(13) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Gothic Coding';\n  font-style: normal;\n  font-weight: 700;\n  src: url(" + __webpack_require__(14) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Myeongjo';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(15) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Myeongjo';\n  font-style: normal;\n  font-weight: 600;\n  src: url(" + __webpack_require__(16) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Myeongjo';\n  font-style: normal;\n  font-weight: 700;\n  src: url(" + __webpack_require__(17) + ") format('woff2');\n}\n@font-face {\n  font-family: 'Nanum Pen Script';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(18) + ") format('woff2');\n}\n@font-face {\n  font-family: nanumBarunLight;\n  font-style: normal;\n  font-weight: 300;\n  src: url(" + __webpack_require__(19) + ") format('woff2');\n}\n@font-face {\n  font-family: nanumBarunUltraLight;\n  font-style: normal;\n  font-weight: 200;\n  src: url(" + __webpack_require__(20) + ") format('woff2');\n}\n@font-face {\n  font-family: nanumBarunRegular;\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(21) + ") format('woff2');\n}\n@font-face {\n  font-family: nanumBarunBold;\n  font-style: normal;\n  font-weight: 700;\n  src: url(" + __webpack_require__(22) + ") format('woff2');\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 7 */
+/* 9 */
 /***/ function(module, exports) {
 
 	/*
@@ -4160,89 +4162,85 @@
 
 
 /***/ },
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "1d98d61bb3f3c62920b0edcdbade3070.woff2";
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "60ccd866579bed370ea18836602a9330.woff2";
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "e8d3c62208f618bf2ca1e878c6bf9927.woff2";
 
 /***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "20ceacd97b149e278f098d2f62c3168a.woff2";
 
 /***/ },
-/* 16 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "6f8957f56bce4e9320c8633b2e23cfde.woff2";
 
 /***/ },
-/* 17 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "4d943809d88c7be6ae3f4e3857b2a99f.woff2";
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "01844f679e9b8c2bfd7f5975be7a61dc.woff2";
 
 /***/ },
-/* 19 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "31ca60966758447206bdb9494b823cd4.woff2";
 
 /***/ },
-/* 20 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "5559f596796afae6edfa01b371809890.woff2";
 
 /***/ },
-/* 21 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "8e349777827d56ad0ab2e33037c26cb8.woff2";
 
 /***/ },
-/* 22 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "04f20ede49df3e836b48461d086af635.woff2";
 
 /***/ },
-/* 23 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "ecf17559a7d726e924c87764d4e869d5.woff2";
 
 /***/ },
-/* 24 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "5ecca925eabf53461c5aaefd7891b9fb.woff2";
 
 /***/ },
-/* 25 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -4494,6 +4492,46 @@
 
 
 /***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(25);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(23)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./develop.less", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./develop.less");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(9)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n  margin: 0;\n  font-family: nanumBarunRegular !important;\n}\nbody {\n  overflow: hidden;\n  font-family: 'Nanum Gothic';\n}\n.page-header {\n  margin: 0;\n  border: 0;\n}\n.wrapper {\n  position: absolute;\n  left: 0;\n  top: 45px;\n  right: 0;\n  bottom: 0;\n}\n.hide_contents {\n  display: none !important;\n}\n.entryTextFontSelecter {\n  display: inline-block;\n  width: 96px;\n  height: 32px;\n  float: left;\n}\n.entryPauseButtonWorkspace_w {\n  display: none;\n}\n.entryUploaderWindow {\n  display: none;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(0, 86, 132, 0.9);\n  z-index: 250000;\n  text-align: center;\n  opacity: 0;\n  -webkit-transition: opacity 250ms;\n  transition: opacity 250ms;\n}\n.entryUploaderWindowContent {\n  position: absolute;\n  top: 10px;\n  left: 10px;\n  right: 10px;\n  bottom: 10px;\n  border: 1px dashed #fff;\n}\n.entryUploaderWindowContent h1 {\n  margin: -0.5em 0 0;\n  position: absolute;\n  top: 50%;\n  left: 0;\n  right: 0;\n  -webkit-transform: translateY(-50%);\n  -ms-transform: translateY(-50%);\n  transform: translateY(-50%);\n  font-size: 40px;\n  color: #fff;\n  padding: 0;\n}\n.entrySpinnerWindow {\n  display: none;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(0, 0, 0, 0.6);\n  z-index: 250000;\n  text-align: center;\n}\n.entrySpinner {\n  position: relative;\n  left: 0;\n  width: 70px;\n  height: 60px;\n  text-align: center;\n  font-size: 10px;\n  margin: auto;\n}\n.entrySpinner > div {\n  background-color: #fff;\n  height: 100%;\n  width: 6px;\n  display: inline-block;\n  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;\n  animation: sk-stretchdelay 1.2s infinite ease-in-out;\n}\n.entrySpinner .rect2 {\n  -webkit-animation-delay: -1.1s;\n  animation-delay: -1.1s;\n}\n.entrySpinner .rect3 {\n  -webkit-animation-delay: -1s;\n  animation-delay: -1s;\n}\n.entrySpinner .rect4 {\n  -webkit-animation-delay: -0.9s;\n  animation-delay: -0.9s;\n}\n.entrySpinner .rect5 {\n  -webkit-animation-delay: -0.8s;\n  animation-delay: -0.8s;\n}\n@-webkit-keyframes sk-stretchdelay {\n  0%,\n  40%,\n  100% {\n    -webkit-transform: scaleY(0.4);\n  }\n  20% {\n    -webkit-transform: scaleY(1);\n  }\n}\n@keyframes sk-stretchdelay {\n  0%,\n  40%,\n  100% {\n    transform: scaleY(0.4);\n    -webkit-transform: scaleY(0.4);\n  }\n  20% {\n    transform: scaleY(1);\n    -webkit-transform: scaleY(1);\n  }\n}\n.tab-content .tab-pane .upload_wrap {\n  width: 713px;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
 /* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -4565,46 +4603,6 @@
 	"class":"calc"},"set_visible_answer":{"isNotFor":[""],"xml":"<block type='set_visible_answer'><field name='BOOL'>HIDE</field></block>","class":"ask"},"choose_project_timer_action":{"isNotFor":[""],"xml":"<block type='choose_project_timer_action'><field name='ACTION'>START</field></block>","class":"calc_timer"},"robotis_openCM70_cm_buzzer_index":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_cm_buzzer_index'><value name='CM_BUZZER_TIME'><block type='number'><field name='NUM'>1</field></block></value></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_cm_buzzer_melody":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_cm_buzzer_melody'></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_cm_sound_detected_clear":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_cm_sound_detected_clear'></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_sensor_value":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_sensor_value'></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_aux_sensor_value":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_aux_sensor_value'></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_cm_led":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_cm_led'></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_cm_motion":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_cm_motion'><value name='VALUE'><block type='number'><field name='NUM'>1</field></block></value></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_aux_motor_speed":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_aux_motor_speed'><value name='VALUE'><block type='number'><field name='NUM'>500</field></block></value></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_aux_servo_mode":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_aux_servo_mode'></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_aux_servo_speed":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_aux_servo_speed'><value name='VALUE'><block type='number'><field name='NUM'>500</field></block></value></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_aux_servo_position":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_aux_servo_position'><value name='VALUE'><block type='number'><field name='NUM'>512</field></block></value></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_aux_led_module":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_aux_led_module'></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_aux_custom":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_aux_custom'><value name='VALUE'><block type='number'><field name='NUM'>0</field></block></value></block>","class":"robotis_openCM70_cm"},"robotis_openCM70_cm_custom_value":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_cm_custom_value'><value name='VALUE'><block type='number'><field name='NUM'>0</field></block></value></block>","class":"robotis_openCM70_custom"},"robotis_openCM70_cm_custom":{"isNotFor":['robotis_openCM70'],"xml":"<block type='robotis_openCM70_cm_custom'><value name='ADDRESS'><block type='number'><field name='NUM'>0</field></block></value><value name='VALUE'><block type='number'><field name='NUM'>0</field></block></value></block>","class":"robotis_openCM70_custom"},"robotis_carCont_sensor_value":{"isNotFor":['robotis_carCont'],"xml":"<block type='robotis_carCont_sensor_value'></block>","class":"robotis_carCont_cm"},"robotis_carCont_cm_led":{"isNotFor":['robotis_carCont'],"xml":"<block type='robotis_carCont_cm_led'></block>","class":"robotis_carCont_cm"},"robotis_carCont_cm_sound_detected_clear":{"isNotFor":['robotis_carCont'],"xml":"<block type='robotis_carCont_cm_sound_detected_clear'></block>","class":"robotis_carCont_cm"},"robotis_carCont_aux_motor_speed":{"isNotFor":['robotis_carCont'],"xml":"<block type='robotis_carCont_aux_motor_speed'><value name='VALUE'><block type='number'><field name='NUM'>500</field></block></value></block>","class":"robotis_carCont_cm"},"robotis_carCont_cm_calibration":{"isNotFor":['robotis_carCont'],"xml":"<block type='robotis_carCont_cm_calibration'><value name='VALUE'><block type='number'><field name='NUM'>0</field></block></value></block>","class":"robotis_carCont_cm"}};EntryStatic.discussCategories=[// 'notice',
 	'qna','tips','free','report','notice'];EntryStatic.artCategories=[{'key':'art_category_','lang':'art_category_all','value':''},{'key':'art_category_게임','lang':'art_category_game','value':'게임'},{'key':'art_category_애니메이션','lang':'art_category_animation','value':'애니메이션'},{'key':'art_category_미디어아트','lang':'art_category_media','value':'미디어아트'},{'key':'art_category_피지컬','lang':'art_category_physical','value':'피지컬'},{'key':'art_category_기타','lang':'art_category_etc','value':'기타'}];EntryStatic.artSortOptions=[{'key':'art_sort_updated','lang':'art_sort_updated','value':'updated'},{'key':'art_sort_visit','lang':'art_sort_visit','value':'visit'},{'key':'art_sort_likeCnt','lang':'art_sort_likeCnt','value':'likeCnt'},{'key':'art_sort_comment','lang':'art_sort_comment','value':'comment'}];EntryStatic.discussSortOptions=[{'lang':'discuss_sort_created','value':'created'},{'lang':'discuss_sort_visit','value':'visit'},{'lang':'discuss_sort_likesLength','value':'likesLength'},{'lang':'discuss_sort_commentsLength','value':'commentsLength'}];EntryStatic.discussPeriodOptions=[{'key':'discuss_period_','lang':'discuss_period_all','value':''},{'key':'discuss_period_1','lang':'discuss_period_day','value':'1'},{'key':'discuss_period_7','lang':'discuss_period_week','value':'7'},{'key':'discuss_period_30','lang':'discuss_period_month','value':'30'},{'key':'discuss_period_90','lang':'discuss_period_three_month','value':'90'}];EntryStatic.artPeriodOptions=[{'key':'art_period_','lang':'art_period_all','value':''},{'key':'art_period_1','lang':'art_period_day','value':'1'},{'key':'art_period_7','lang':'art_period_week','value':'7'},{'key':'art_period_30','lang':'art_period_month','value':'30'},{'key':'art_period_90','lang':'art_period_three_month','value':'90'}];EntryStatic.getCategoryByBlock=function(blockName){if(!blockName)return false;var allBlocks=EntryStatic.getAllBlocks();for(var i=0,len=allBlocks.length;i<len;i++){var blocks=allBlocks[i].blocks;if(blocks.indexOf(blockName)>-1){return allBlocks[i].category;}}return false;};EntryStatic.objectMainCategories=['entrybot_friends','people','animal','plant','vehicles','architect','food','environment','stuff','fantasy','interface','background'];EntryStatic.objectSubCategories={'entrybot_friends':[],'people':[],'animal':['animal_flying','animal_land','animal_water','animal_others'],'plant':['plant_flower','plant_grass','plant_tree','plant_others'],'vehicles':['vehicles_flying','vehicles_land','vehicles_water','vehicles_others'],'architect':['architect_building','architect_monument','architect_others'],'food':['food_vegetables','food_meat','food_drink','food_others'],'environment':['environment_nature','environment_space','environment_others'],'stuff':['stuff_living','stuff_hobby','stuff_others'],'fantasy':[],'interface':[],'background':['background_outdoor','background_indoor','background_nature','background_others']};EntryStatic.fonts=[{name:'바탕체',family:'KoPub Batang',url:'/css/kopubbatang.css'},{name:'명조체',family:'Nanum Myeongjo',url:'/css/nanummyeongjo.css'},{name:'고딕체',family:'Nanum Gothic',url:'/css/nanumgothic.css'},{name:'필기체',family:'Nanum Pen Script',url:'/css/nanumpenscript.css'},{name:'한라산체',family:'Jeju Hallasan',url:'/css/jejuhallasan.css'},{name:'코딩고딕체',family:'Nanum Gothic Coding',url:'/css/nanumgothiccoding.css'}];EntryStatic.getName=function(str,type){var dict=SpriteNames;if(type=='picture')dict=PictureNames;else if(type=='sound')dict=SoundNames;var lang=navigator.language?navigator.language:'ko';if(window.lang)lang=window.lang;if(window.user&&window.user.language)lang=window.user.language;if(!dict||lang=='ko'||lang=='code'){return str;}else{return dict[str]?dict[str]:str;}};EntryStatic.ARROW_COLOR_START='#2f975a';EntryStatic.ARROW_COLOR_FLOW='#3a71bc';EntryStatic.ARROW_COLOR_MOVING='#8641b6';EntryStatic.ARROW_COLOR_LOOKS='#d8234e';EntryStatic.ARROW_COLOR_SOUNDS='#83a617';EntryStatic.ARROW_COLOR_JUDGE='#89a1f7';EntryStatic.ARROW_COLOR_CALC='#e8b349';EntryStatic.ARROW_COLOR_VARIABLE='#ce38ce';EntryStatic.ARROW_COLOR_HW='#097e84';EntryStatic.COMMAND_TYPES={addThread:101,destroyThread:102,destroyBlock:103,recoverBlock:104,insertBlock:105,separateBlock:106,moveBlock:107,cloneBlock:108,uncloneBlock:109,scrollBoard:110,setFieldValue:111,selectObject:201,'do':301,'undo':302,'redo':303};// for server node js code
 	if(( false?"undefined":_typeof(exports))=="object"){exports.blockInfo=EntryStatic.blockInfo;exports.getAllBlocks=EntryStatic.getAllBlocks;exports.getCategoryByBlock=EntryStatic.getCategoryByBlock;exports.EntryStatic=EntryStatic;}
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(33);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(25)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./develop.less", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./develop.less");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(7)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n  margin: 0;\n  font-family: nanumBarunRegular !important;\n}\nbody {\n  overflow: hidden;\n  font-family: 'Nanum Gothic';\n}\n.page-header {\n  margin: 0;\n  border: 0;\n}\n.wrapper {\n  position: absolute;\n  left: 0;\n  top: 45px;\n  right: 0;\n  bottom: 0;\n}\n.hide_contents {\n  display: none !important;\n}\n.entryTextFontSelecter {\n  display: inline-block;\n  width: 96px;\n  height: 32px;\n  float: left;\n}\n.entryPauseButtonWorkspace_w {\n  display: none;\n}\n.entryUploaderWindow {\n  display: none;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(0, 86, 132, 0.9);\n  z-index: 250000;\n  text-align: center;\n  opacity: 0;\n  -webkit-transition: opacity 250ms;\n  transition: opacity 250ms;\n}\n.entryUploaderWindowContent {\n  position: absolute;\n  top: 10px;\n  left: 10px;\n  right: 10px;\n  bottom: 10px;\n  border: 1px dashed #fff;\n}\n.entryUploaderWindowContent h1 {\n  margin: -0.5em 0 0;\n  position: absolute;\n  top: 50%;\n  left: 0;\n  right: 0;\n  -webkit-transform: translateY(-50%);\n  -ms-transform: translateY(-50%);\n  transform: translateY(-50%);\n  font-size: 40px;\n  color: #fff;\n  padding: 0;\n}\n.entrySpinnerWindow {\n  display: none;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(0, 0, 0, 0.6);\n  z-index: 250000;\n  text-align: center;\n}\n.entrySpinner {\n  position: relative;\n  left: 0;\n  width: 70px;\n  height: 60px;\n  text-align: center;\n  font-size: 10px;\n  margin: auto;\n}\n.entrySpinner > div {\n  background-color: #fff;\n  height: 100%;\n  width: 6px;\n  display: inline-block;\n  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;\n  animation: sk-stretchdelay 1.2s infinite ease-in-out;\n}\n.entrySpinner .rect2 {\n  -webkit-animation-delay: -1.1s;\n  animation-delay: -1.1s;\n}\n.entrySpinner .rect3 {\n  -webkit-animation-delay: -1s;\n  animation-delay: -1s;\n}\n.entrySpinner .rect4 {\n  -webkit-animation-delay: -0.9s;\n  animation-delay: -0.9s;\n}\n.entrySpinner .rect5 {\n  -webkit-animation-delay: -0.8s;\n  animation-delay: -0.8s;\n}\n@-webkit-keyframes sk-stretchdelay {\n  0%,\n  40%,\n  100% {\n    -webkit-transform: scaleY(0.4);\n  }\n  20% {\n    -webkit-transform: scaleY(1);\n  }\n}\n@keyframes sk-stretchdelay {\n  0%,\n  40%,\n  100% {\n    transform: scaleY(0.4);\n    -webkit-transform: scaleY(0.4);\n  }\n  20% {\n    transform: scaleY(1);\n    -webkit-transform: scaleY(1);\n  }\n}\n.tab-content .tab-pane .upload_wrap {\n  width: 713px;\n}\n", ""]);
-	
-	// exports
-
 
 /***/ }
 /******/ ]);
