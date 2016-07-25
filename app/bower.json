@@ -1,0 +1,24 @@
+{
+  "name": "Entry-Mini",
+  "description": "entry-offline-mini version",
+  "main": "main.js",
+  "authors": [
+    "EntryLabs"
+  ],
+  "license": "Apache2.0",
+  "homepage": "https://github.com/entrylabs/entry-offline-mini",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~1.11.3",
+    "PreloadJS": "0.6.0",
+    "EaselJS": "https://github.com/boolgom/EaselJS.git",
+    "SoundJS": "0.6.0",
+    "jquery-ui": "~1.11.x"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "name": "entry-offline-mini",
+  "version": "1.0.0",
+  "description": "entry-offline-mini",
+  "main": "index.js",
+  "scripts": {
+    "start": "set NODE_ENV=development&&electron -d app",
+    "test": "mocha test/default.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://kimorkim@github.com/entrylabs/entry-offline-mini.git"
+  },
+  "author": "EntryLabs",
+  "license": "Apache2.0",
+  "bugs": {
+    "url": "https://github.com/entrylabs/entry-offline-mini/issues"
+  },
+  "build": {
+    "osx": {
+      "icon": "build/icon.icns",
+      "icon-size": 80,
+      "background": "build/background.png",
+      "contents": [
+        {
+          "x": 240,
+          "y": 380,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 240,
+          "y": 120,
+          "type": "file",
+          "path": "Entry.app"
+        },
+        {
+          "x": 380,
+          "y": 250,
+          "type": "file",
+          "path": "./app/README.md"
+        }
+      ]
+    },
+    "win": {
+      "loadingGif": "build/install-spinner.gif",
+      "title": "Entry-Mini",
+      "icon": "./icon/app.ico",
+      "authors": "EntryLabs"
+    },
+    "asar": false,
+    "app-bundle-id": "entry-offline",
+    "app-category-type": "org.play-entry.entry-offline",
+    "iconUrl": "https://raw.githubusercontent.com/entrylabs/entry-hw/feature/electron/build/icon.ico",
+    "icon": "app/icon/app"
+  },
+  "homepage": "https://github.com/entrylabs/entry-offline-mini#readme",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "electron-prebuilt": "^1.2.8",
+    "webpack": "^1.13.1"
+  }
+}
