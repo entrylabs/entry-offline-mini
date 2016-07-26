@@ -8,7 +8,6 @@ function init(){
         localStorage.setItem('lang', 'ko');
     }
     let userLang = localStorage.getItem('lang');
-    let userLnagScript = document.createElement('script');
     var {Lang} = require(`../bower_components/entryjs/extern/lang/${userLang}.js`);
     window.Lang = Lang;
     var {EntryStatic} = require('../bower_components/entryjs/extern/util/static.js');

@@ -30,7 +30,25 @@ Module.prototype.requestInitialData = function() {
 };
 
 Module.prototype.checkInitialData = function(data, config) {
-	return true;
+	var state = false;
+
+	for(var i = 0; i < data.length - 1; i++) {
+		if(data[i] === 171 && data[i + 1] === 205 ) {
+			var dataSet = data.slice(i, i + 8);
+			var dataSum = dataSet.reduce(function (result, value, idx) {
+				if(idx < 2 || idx >= dataSet.length-1) {
+					return result;
+				}
+				return result + value;
+			}, 0);
+			if((dataSum & 255) === dataSet[dataSet.length-1]) {
+				state = true;
+			}
+			break;
+		}
+	}
+	
+	return state;
 };
 
 Module.prototype.validateLocalData = function(data) {
@@ -76,7 +94,7 @@ Module.prototype.handleLocalData = function(data) {
 Module.prototype.requestRemoteData = function(handler) {
 	var buffer = this.remoteBuffer;
 	for(var i = 0; i < 5; i++) {
-		handler.write(this.LOCAL_MAP[i], buffer[i]);
+		handler[this.LOCAL_MAP[i]] = buffer[i];
 	}
 };
 
@@ -85,7 +103,7 @@ Module.prototype.handleRemoteData = function(handler) {
 	var buffer = this.localBuffer;
 
 	this.REMOTE_MAP.forEach(function (key, idx) {
-		buffer[idx] = handler.read(key);
+		buffer[idx] = handler[key];
 	});
 };
 

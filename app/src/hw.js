@@ -1,7 +1,6 @@
 'use strict';
 
-import Router from './router/router'
-
+import router from './router/router'
 
 Entry.HW = function () {
     this.connectTrial = 0;
@@ -9,7 +8,8 @@ Entry.HW = function () {
 
     // this.initSocket();
 
-    Router.init();
+    this.initRouter();
+   
     this.connected = false;
     this.portData = {};
     this.sendQueue = {};
@@ -45,6 +45,30 @@ Entry.HW = function () {
 Entry.HW.TRIAL_LIMIT = 1;
 
 var p = Entry.HW.prototype;
+
+p.initRouter = function() {
+
+    // router.on('state', (data)=> {
+    //     console.log(data);
+    // })
+
+    router.on('local_data', (data)=> {
+        this.checkDevice(data);
+        this.updatePortData(data);
+    })
+
+    router.init();
+}
+
+p.startRouter = function () {
+    this.initHardware();
+    var neobot = require('../hw_modules/neobot.json');
+    router.startScan(neobot);
+}
+
+p.stopRouter = function () {
+    router.stopScan();
+}
 
 p.initSocket = function() {
     try{
@@ -194,15 +218,8 @@ p.removePortReadable = function(port) {
 }
 
 p.update = function() {
-    if (!this.socket) {
-        return;
-    }
-
-    if(this.socket.readyState != 1) {
-        return;
-    }
-
-    this.socket.send(JSON.stringify(this.sendQueue));
+    // this.socket.send(JSON.stringify(this.sendQueue));
+    router.emit('remote_data', this.sendQueue);
 };
 
 p.updatePortData = function(data) {
