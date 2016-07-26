@@ -12,6 +12,7 @@ class serial {
         this.emitter;
         this.scanInterval;
         this.extension;
+        this.i = 0;
     }
 
     init(router) {
@@ -50,17 +51,15 @@ class serial {
     }
 
     write(bytes) {
-        console.timeEnd('a');
-        console.time('a');
+        console.time(this.i);
         if(this.sp && this.sp.isOpen() && bytes && !this.sp.isSending) {
             this.sp.isSending = true;
             this.sp.write(bytes, ()=> {
                 this.sp.drain(()=> {
+                    console.timeEnd(this.i++);
                     this.sp.isSending = false;
                 });
             });
-        } else {
-            console.log(`drain ${JSON.stringify(bytes)}`);
         }
     }
 

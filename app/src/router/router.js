@@ -27,11 +27,11 @@ class router{
                 this.extension.requestRemoteData(this.local_data);
                 this.emit('local_data', this.local_data);
             }
+            let bytes = this.extension.requestLocalData();
+            serial.write(bytes);
         });
         this.on('remote_data', (data)=> {
             this.extension.handleRemoteData(data);
-            let bytes = this.extension.requestLocalData();
-            serial.write(bytes);
         });
     }
 

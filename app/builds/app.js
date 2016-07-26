@@ -406,11 +406,11 @@
 	                    _this.extension.requestRemoteData(_this.local_data);
 	                    _this.emit('local_data', _this.local_data);
 	                }
+	                var bytes = _this.extension.requestLocalData();
+	                _serial2.default.write(bytes);
 	            });
 	            this.on('remote_data', function (data) {
 	                _this.extension.handleRemoteData(data);
-	                var bytes = _this.extension.requestLocalData();
-	                _serial2.default.write(bytes);
 	            });
 	        }
 	    }, {
@@ -503,6 +503,7 @@
 	        this.emitter;
 	        this.scanInterval;
 	        this.extension;
+	        this.i = 0;
 	    }
 	
 	    _createClass(serial, [{
@@ -551,17 +552,15 @@
 	        value: function write(bytes) {
 	            var _this3 = this;
 	
-	            console.timeEnd('a');
-	            console.time('a');
+	            console.time(this.i);
 	            if (this.sp && this.sp.isOpen() && bytes && !this.sp.isSending) {
 	                this.sp.isSending = true;
 	                this.sp.write(bytes, function () {
 	                    _this3.sp.drain(function () {
+	                        console.timeEnd(_this3.i++);
 	                        _this3.sp.isSending = false;
 	                    });
 	                });
-	            } else {
-	                console.log('drain ' + JSON.stringify(bytes));
 	            }
 	        }
 	    }, {
