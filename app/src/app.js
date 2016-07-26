@@ -20,7 +20,7 @@ $(document).ready(() => {
         container.appendChild(sceneView);
         /** @type {!Element} */
         this.sceneView = sceneView;
-        this.sceneView.style.display = "none";
+        this.sceneView.style.display = "none"
         this.scene.generateView(this.sceneView, option);
 
         var stateManagerView = Entry.createElement('div');
@@ -65,6 +65,7 @@ $(document).ready(() => {
 
         //this.propertyPanel.select("object");
         this.helper.bindWorkspace(this.playground.mainWorkspace);
+        this.helper.visible = true;
     };
 
     Entry.init(document.getElementById('workspace'), initOption)

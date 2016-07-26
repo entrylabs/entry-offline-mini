@@ -110,6 +110,7 @@
 	
 	        //this.propertyPanel.select("object");
 	        this.helper.bindWorkspace(this.playground.mainWorkspace);
+	        this.helper.visible = true;
 	    };
 	
 	    Entry.init(document.getElementById('workspace'), initOption);
