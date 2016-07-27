@@ -2,6 +2,7 @@ window._ = require('underscore');
 window.jquery = window.$ = window.jQuery = require('../bower_components/jquery/dist/jquery.min.js');
 var css = require('../css/fonts.less');
 var css = require('../css/develop.less');
+require('../bower_components/velocity/velocity.min.js');
 
 function init(){
     if(!localStorage.getItem('lang')) {
