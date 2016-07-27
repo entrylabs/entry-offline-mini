@@ -19,6 +19,7 @@
     "PreloadJS": "0.6.0",
     "EaselJS": "https://github.com/boolgom/EaselJS.git",
     "SoundJS": "0.6.0",
-    "jquery-ui": "~1.11.x"
+    "jquery-ui": "~1.11.x",
+    "velocity": "~1.2.3"
   }
 }
