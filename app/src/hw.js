@@ -224,8 +224,7 @@ p.update = function() {
 
 p.updatePortData = function(data) {
     this.portData = data;
-    if (this.hwMonitor
-        && Entry.propertyPanel.selected == 'hw') {
+    if (this.hwMonitor) {
         this.hwMonitor.update();
     }
 };
@@ -263,18 +262,10 @@ p.checkDevice = function(data) {
     this.selectedDevice = key;
     this.hwModule = this.hwInfo[key];
     Entry.dispatchEvent("hwChanged");
-    Entry.toast.success(
-        "하드웨어 연결 성공",
-        /* Lang.Menus.connect_message.replace(
-            "%1",
-            Lang.Device[Entry.hw.hwModule.name]
-        ) +*/ "하드웨어 아이콘을 더블클릭하면, 센서값만 확인할 수 있습니다.",
-        true
-    );
-    if (this.hwModule.monitorTemplate) {
 
+    if (this.hwModule.monitorTemplate) {
         if(!this.hwMonitor) {
-            this.hwMonitor =new Entry.HWMonitor(this.hwModule);
+            this.hwMonitor = new Entry.HWMonitor(this.hwModule);
         } else {
             this.hwMonitor._hwModule = this.hwModule;
             this.hwMonitor.initView();
