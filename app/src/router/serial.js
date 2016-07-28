@@ -23,11 +23,11 @@ class serial extends EventEmitter{
 
         this.on('connectDevice', comName => {
             clearInterval(this.scanInterval);
-            this.emitter.emit('state', 'connectDevice');
+            this.emitter.emit('state', { state: 'connectDevice' });
             this.removeDevice(comName, true);
             this.sp = this.serialport_list[comName];
             this.sp.on('data', data => {
-                console.log(data);
+                // console.log(data);
                 this.emitter.emit('data', data);
             });
         });
@@ -145,6 +145,7 @@ class serial extends EventEmitter{
     stopScan() {
         clearInterval(this.scanInterval);
         this.removeDevice();
+        this.emitter.emit('state', { state: 'disconnect' });
         delete this.sp;
     }
 }

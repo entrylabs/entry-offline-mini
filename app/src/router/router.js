@@ -11,14 +11,16 @@ class router extends EventEmitter{
         this.hardware;
         this.slaveTimer;
         this.local_data = {};
+        this.is_connect = false;
     }
 
     init() {
         serial.init(this);
-        this.on('state', state => {
+        this.on('state', ({state}) => {
             console.log(state);
             switch(state) {
                 case 'connectDevice': {
+                    this.is_connect = true;
                     clearInterval(this.slaveTimer);
                     let {control, duration} = this.hardware;
                     if(control !== 'master' && duration) {
@@ -30,6 +32,7 @@ class router extends EventEmitter{
                     break;
                 }
                 case 'disconnect': {
+                    this.is_connect = false;
                     clearInterval(this.slaveTimer);
                 }
             }
@@ -52,6 +55,10 @@ class router extends EventEmitter{
         this.on('remote_data', (data)=> {
             this.extension.handleRemoteData(data);
         });
+    }
+
+    isConnect() {
+        return this.is_connect;
     }
 
     setDefaultLocalData(config) {
