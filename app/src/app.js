@@ -72,4 +72,5 @@ $(document).ready(() => {
 
     Entry.enableArduino();
     Entry.loadProject();
+
 });
