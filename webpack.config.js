@@ -5,6 +5,7 @@ module.exports = {
     entry: {
         app: './app/src/app.js',
         init: './app/src/initializer.js',
+        header: './app/src/header.js',
     },
     devtool: 'source-map',
     output: {
