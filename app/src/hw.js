@@ -219,7 +219,9 @@ p.removePortReadable = function(port) {
 
 p.update = function() {
     // this.socket.send(JSON.stringify(this.sendQueue));
-    router.emit('remote_data', this.sendQueue);
+    if(router.isConnect()) {
+        router.emit('remote_data', this.sendQueue);
+    }
 };
 
 p.updatePortData = function(data) {
