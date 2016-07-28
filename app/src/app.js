@@ -1,3 +1,5 @@
+require('./hw.js');
+
 $(document).ready(() => {
     let initOption = {
         type: 'workspace',
