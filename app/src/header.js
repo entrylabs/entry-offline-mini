@@ -1,18 +1,4 @@
 $(document).ready(() => {
-    console.log('header.js');
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
 
     var container = $('#header');
 
@@ -66,7 +52,6 @@ $(document).ready(() => {
         class: 'dropbtn'
     });
     newButton.click(function() {
-        console.log('new menu clicked.')
         document.getElementById("newMenuListDiv").classList.toggle("show");
         document.getElementById("saveMenuListDiv").classList.remove("show");
     });
@@ -82,7 +67,7 @@ $(document).ready(() => {
     });
     newMenuItemInit.html("새로 만들기");
     newMenuItemInit.click(function() {
-        console.log('click new link');
+        console.log('TODO: 새로만들기 클릭!');
     });
     var newMenuItemOpen = Entry.Dom('a', {
         parent: newMenuListDiv,
@@ -90,7 +75,7 @@ $(document).ready(() => {
     });
     newMenuItemOpen.html("불러 오기");
     newMenuItemOpen.click(function() {
-        console.log('click open link');
+        console.log('TODO: 불러오기 클릭!');
     });
 
 
@@ -106,7 +91,6 @@ $(document).ready(() => {
         class: 'dropbtn'
     });
     saveButton.click(function() {
-        console.log('save menu clicked.');
         document.getElementById("newMenuListDiv").classList.remove("show");
         document.getElementById("saveMenuListDiv").classList.toggle("show");
     });
@@ -121,7 +105,7 @@ $(document).ready(() => {
     });
     saveMenuItemSave.html("저장하기");
     saveMenuItemSave.click(function() {
-        console.log('click save link');
+        console.log('TODO: 저장하기 클릭!');
     });
     var saveMenuItemSaveAs = Entry.Dom('a', {
         parent: saveMenuListDiv,
@@ -129,7 +113,7 @@ $(document).ready(() => {
     });
     saveMenuItemSaveAs.html("복사본으로 저장하기");
     saveMenuItemSaveAs.click(function() {
-        console.log('click save as link');
+        console.log('TODO: 복사본으로 저장하기 클릭!');
     });
 
     // Undo & Redo
@@ -138,11 +122,31 @@ $(document).ready(() => {
         id: 'undoButton',
         class: 'toolbarIconButton'
     });
+    undoButton.click(function() {
+        console.log('TODO: UNDO 클릭!');
+    });
 
     var redoButton = Entry.Dom('button', {
         parent: toolbarDiv,
         id: 'redoButton',
         class: 'toolbarIconButton'
     });
+    redoButton.click(function() {
+        console.log('TODO: REDO 클릭!');
+    });
+
+    // remove dropdown menu on click
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
 
 });
