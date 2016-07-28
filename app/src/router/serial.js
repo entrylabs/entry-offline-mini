@@ -1,64 +1,78 @@
 'use strict';
 import path from 'path';
-import util from 'util';
 import {EventEmitter} from 'events';
 import serialport from 'serialport';
 
-class serial {
+class serial extends EventEmitter{
     constructor() {
-        EventEmitter.call(this);
+        super();
         this.device_list = {};
         this.serialport_list = {};
         this.emitter;
         this.scanInterval;
         this.extension;
-        this.i = 0;
     }
 
     init(router) {
         this.emitter = router;
         this.on('addDevice', (device, options)=> {
+            this.emitter.emit('state', 'addDevice');
             this.device_list[device.comName] = device;
             this.open(device, options);
         });
 
-        this.on('openDevice', (comName)=> {
-            this.removeDevice(comName);
+        this.on('connectDevice', comName => {
+            clearInterval(this.scanInterval);
+            this.emitter.emit('state', 'connectDevice');
+            this.removeDevice(comName, true);
             this.sp = this.serialport_list[comName];
-            this.sp.on('data', (data)=> {
+            this.sp.on('data', data => {
+                console.log(data);
                 this.emitter.emit('data', data);
             });
         });
     }
 
-    removeDevice(comName) {
-        clearInterval(this.scanInterval);
+    removeDevice(comName, isExclude) {
         setTimeout(() => {
             Object.keys(this.serialport_list).forEach((v)=> {
                 let sp = this.serialport_list[v];
-                if(comName !== v && sp.isOpen()) {
+                let isClose = true;
+
+                if(!comName) {
+                    isClose = true;
+                } else if(isExclude && comName === v) {
+                    isClose = false;
+                } else if(!isExclude && comName !== v) {
+                    isClose = false;
+                }
+
+                if(isClose && sp.isOpen()) {
                     sp.close();
                 }
             });
-            if(comName) {
+            if(comName && isExclude) {
                 this.serialport_list = {[comName]:this.serialport_list[comName]};
                 this.device_list = {[comName]:this.device_list[comName]};
+            } else if(comName) {
+                delete this.serialport_list[comName];
+                delete this.device_list[comName];
             } else {
                 this.serialport_list = {};
                 this.device_list = {};
             }
-        }, 300);
+        }, 150);
     }
 
-    write(bytes) {
-        console.time(this.i);
-        if(this.sp && this.sp.isOpen() && bytes && !this.sp.isSending) {
+    write(data) {
+        if(this.sp && this.sp.isOpen() && data && !this.sp.isSending) {
             this.sp.isSending = true;
-            this.sp.write(bytes, ()=> {
-                this.sp.drain(()=> {
-                    console.timeEnd(this.i++);
-                    this.sp.isSending = false;
-                });
+            this.sp.write(data, ()=> {
+                if(this.sp) {
+                    this.sp.drain(()=> {
+                        if(this.sp) this.sp.isSending = false;
+                    });
+                }
             });
         }
     }
@@ -87,20 +101,22 @@ class serial {
             console.log('open');
         });
 
+        sp.on('error', (e)=> {
+            console.log('error');
+            this.removeDevice(comName);
+        });
+
         sp.on('data', (data)=> {
             if(this.extension.checkInitialData(data)) {
-                console.log(`success ${comName}`);
                 sp.removeAllListeners();
-                this.emit('openDevice', comName);
-            } else {
-                console.log(data);
-                console.log(`fail ${comName}`);
+                this.emit('connectDevice', comName);
             }
         });
 
         sp.on('disconnect', (e)=> {
-            delete this.serialport_list[comName];
-            delete this.device_list[comName];
+            // delete this.serialport_list[comName];
+            // delete this.device_list[comName];
+            this.removeDevice(comName);
         });
     }
 
@@ -108,7 +124,6 @@ class serial {
         this.extension = extension;
         this.emitter.emit('state', 'start');
         this.scanInterval = setInterval(()=> {
-            console.log('scan');
             serialport.list((e, devices)=> {
                 if(e) {
                     throw e;
@@ -123,17 +138,15 @@ class serial {
                     }
                 });            
             }); 
-        }, 2000);
+        }, 1000);
         
     }
 
     stopScan() {
+        clearInterval(this.scanInterval);
         this.removeDevice();
         delete this.sp;
-        console.log('stop');
     }
 }
-
-util.inherits(serial, EventEmitter);
 
 export default new serial();

@@ -101,14 +101,11 @@ app.once('ready', () => {
     option.debug && mainWindow.webContents.openDevTools();
     mainWindow.webContents.startFile = option.file;
 
-    mainWindow.on('page-title-updated', (e) => {
+    mainWindow.on('page-title-updated', e => {
         e.preventDefault();
     });
 
-    mainWindow.on('close', (e) => {
-        if(hardwareWindow) {
-            hardwareWindow.close();
-        }
+    mainWindow.on('close', e => {
         mainWindow.webContents.send('main-close');
     });
 

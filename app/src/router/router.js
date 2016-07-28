@@ -1,23 +1,40 @@
 'use strict';
 
-import util from 'util';
 import {EventEmitter} from 'events';
 import serial from './serial';
 
-class router{
+class router extends EventEmitter{
     constructor() {
-        EventEmitter.call(this);
+        super();
         this.extension;
+        this.config;
+        this.hardware;
+        this.slaveTimer;
         this.local_data = {};
     }
 
     init() {
-        // this.emit('state', 'init');
         serial.init(this);
-        this.on('state', (data)=> {
-            console.log(data);
+        this.on('state', state => {
+            console.log(state);
+            switch(state) {
+                case 'connectDevice': {
+                    clearInterval(this.slaveTimer);
+                    let {control, duration} = this.hardware;
+                    if(control !== 'master' && duration) {
+                        this.slaveTimer = setInterval(()=> {
+                            let data = this.extension.requestLocalData();
+                            serial.write(data);
+                        }, duration);
+                    }
+                    break;
+                }
+                case 'disconnect': {
+                    clearInterval(this.slaveTimer);
+                }
+            }
         });
-        this.on('data', (data)=> {
+        this.on('data', data => {
             var valid = true;
             if(this.extension.validateLocalData) {
                 valid = this.extension.validateLocalData(data);
@@ -27,8 +44,10 @@ class router{
                 this.extension.requestRemoteData(this.local_data);
                 this.emit('local_data', this.local_data);
             }
-            let bytes = this.extension.requestLocalData();
-            serial.write(bytes);
+            if(this.hardware.control === 'master') {
+                let data = this.extension.requestLocalData();
+                serial.write(data);
+            }
         });
         this.on('remote_data', (data)=> {
             this.extension.handleRemoteData(data);
@@ -48,6 +67,8 @@ class router{
 
     startScan(config) {
         this.extension = require(`../../hw_modules/${config.module}`);
+        this.config = config;
+        this.hardware = config.hardware;
         this.setDefaultLocalData(config);
         serial.startScan(this, this.extension, config);
     }
@@ -56,7 +77,5 @@ class router{
         serial.stopScan();
     }
 }
-
-util.inherits(router, EventEmitter);
 
 export default new router();

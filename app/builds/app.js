@@ -40,9 +40,8 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60,8 +59,7 @@
 	});
 
 /***/ },
-
-/***/ 1:
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -133,7 +131,7 @@
 	
 	p.startRouter = function () {
 	    this.initHardware();
-	    var neobot = __webpack_require__(8);
+	    var neobot = __webpack_require__(9);
 	    _router2.default.startScan(neobot);
 	};
 	
@@ -351,8 +349,7 @@
 	};
 
 /***/ },
-
-/***/ 2:
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -363,13 +360,9 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _util = __webpack_require__(3);
+	var _events = __webpack_require__(3);
 	
-	var _util2 = _interopRequireDefault(_util);
-	
-	var _events = __webpack_require__(4);
-	
-	var _serial = __webpack_require__(5);
+	var _serial = __webpack_require__(4);
 	
 	var _serial2 = _interopRequireDefault(_serial);
 	
@@ -377,40 +370,73 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var router = function () {
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var router = function (_EventEmitter) {
+	    _inherits(router, _EventEmitter);
+	
 	    function router() {
 	        _classCallCheck(this, router);
 	
-	        _events.EventEmitter.call(this);
-	        this.extension;
-	        this.local_data = {};
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(router).call(this));
+	
+	        _this.extension;
+	        _this.config;
+	        _this.hardware;
+	        _this.slaveTimer;
+	        _this.local_data = {};
+	        return _this;
 	    }
 	
 	    _createClass(router, [{
 	        key: 'init',
 	        value: function init() {
-	            var _this = this;
+	            var _this2 = this;
 	
-	            // this.emit('state', 'init');
 	            _serial2.default.init(this);
-	            this.on('state', function (data) {
-	                console.log(data);
+	            this.on('state', function (state) {
+	                console.log(state);
+	                switch (state) {
+	                    case 'connectDevice':
+	                        {
+	                            clearInterval(_this2.slaveTimer);
+	                            var _hardware = _this2.hardware;
+	                            var control = _hardware.control;
+	                            var duration = _hardware.duration;
+	
+	                            if (control !== 'master' && duration) {
+	                                _this2.slaveTimer = setInterval(function () {
+	                                    var data = _this2.extension.requestLocalData();
+	                                    _serial2.default.write(data);
+	                                }, duration);
+	                            }
+	                            break;
+	                        }
+	                    case 'disconnect':
+	                        {
+	                            clearInterval(_this2.slaveTimer);
+	                        }
+	                }
 	            });
 	            this.on('data', function (data) {
 	                var valid = true;
-	                if (_this.extension.validateLocalData) {
-	                    valid = _this.extension.validateLocalData(data);
+	                if (_this2.extension.validateLocalData) {
+	                    valid = _this2.extension.validateLocalData(data);
 	                }
 	                if (valid) {
-	                    _this.extension.handleLocalData(data);
-	                    _this.extension.requestRemoteData(_this.local_data);
-	                    _this.emit('local_data', _this.local_data);
+	                    _this2.extension.handleLocalData(data);
+	                    _this2.extension.requestRemoteData(_this2.local_data);
+	                    _this2.emit('local_data', _this2.local_data);
 	                }
-	                var bytes = _this.extension.requestLocalData();
-	                _serial2.default.write(bytes);
+	                if (_this2.hardware.control === 'master') {
+	                    var _data = _this2.extension.requestLocalData();
+	                    _serial2.default.write(_data);
+	                }
 	            });
 	            this.on('remote_data', function (data) {
-	                _this.extension.handleRemoteData(data);
+	                _this2.extension.handleRemoteData(data);
 	            });
 	        }
 	    }, {
@@ -428,7 +454,9 @@
 	    }, {
 	        key: 'startScan',
 	        value: function startScan(config) {
-	            this.extension = __webpack_require__(6)("./" + config.module);
+	            this.extension = __webpack_require__(7)("./" + config.module);
+	            this.config = config;
+	            this.hardware = config.hardware;
 	            this.setDefaultLocalData(config);
 	            _serial2.default.startScan(this, this.extension, config);
 	        }
@@ -440,29 +468,18 @@
 	    }]);
 	
 	    return router;
-	}();
-	
-	_util2.default.inherits(router, _events.EventEmitter);
+	}(_events.EventEmitter);
 	
 	exports.default = new router();
 
 /***/ },
-
-/***/ 3:
-/***/ function(module, exports) {
-
-	module.exports = require("util");
-
-/***/ },
-
-/***/ 4:
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = require("events");
 
 /***/ },
-
-/***/ 5:
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -473,17 +490,13 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _path = __webpack_require__(39);
+	var _path = __webpack_require__(5);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _util = __webpack_require__(3);
+	var _events = __webpack_require__(3);
 	
-	var _util2 = _interopRequireDefault(_util);
-	
-	var _events = __webpack_require__(4);
-	
-	var _serialport = __webpack_require__(40);
+	var _serialport = __webpack_require__(6);
 	
 	var _serialport2 = _interopRequireDefault(_serialport);
 	
@@ -493,73 +506,96 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var serial = function () {
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var serial = function (_EventEmitter) {
+	    _inherits(serial, _EventEmitter);
+	
 	    function serial() {
 	        _classCallCheck(this, serial);
 	
-	        _events.EventEmitter.call(this);
-	        this.device_list = {};
-	        this.serialport_list = {};
-	        this.emitter;
-	        this.scanInterval;
-	        this.extension;
-	        this.i = 0;
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(serial).call(this));
+	
+	        _this.device_list = {};
+	        _this.serialport_list = {};
+	        _this.emitter;
+	        _this.scanInterval;
+	        _this.extension;
+	        return _this;
 	    }
 	
 	    _createClass(serial, [{
 	        key: 'init',
 	        value: function init(router) {
-	            var _this = this;
+	            var _this2 = this;
 	
 	            this.emitter = router;
 	            this.on('addDevice', function (device, options) {
-	                _this.device_list[device.comName] = device;
-	                _this.open(device, options);
+	                _this2.emitter.emit('state', 'addDevice');
+	                _this2.device_list[device.comName] = device;
+	                _this2.open(device, options);
 	            });
 	
-	            this.on('openDevice', function (comName) {
-	                _this.removeDevice(comName);
-	                _this.sp = _this.serialport_list[comName];
-	                _this.sp.on('data', function (data) {
-	                    _this.emitter.emit('data', data);
+	            this.on('connectDevice', function (comName) {
+	                clearInterval(_this2.scanInterval);
+	                _this2.emitter.emit('state', 'connectDevice');
+	                _this2.removeDevice(comName, true);
+	                _this2.sp = _this2.serialport_list[comName];
+	                _this2.sp.on('data', function (data) {
+	                    console.log(data);
+	                    _this2.emitter.emit('data', data);
 	                });
 	            });
 	        }
 	    }, {
 	        key: 'removeDevice',
-	        value: function removeDevice(comName) {
-	            var _this2 = this;
+	        value: function removeDevice(comName, isExclude) {
+	            var _this3 = this;
 	
-	            clearInterval(this.scanInterval);
 	            setTimeout(function () {
-	                Object.keys(_this2.serialport_list).forEach(function (v) {
-	                    var sp = _this2.serialport_list[v];
-	                    if (comName !== v && sp.isOpen()) {
+	                Object.keys(_this3.serialport_list).forEach(function (v) {
+	                    var sp = _this3.serialport_list[v];
+	                    var isClose = true;
+	
+	                    if (!comName) {
+	                        isClose = true;
+	                    } else if (isExclude && comName === v) {
+	                        isClose = false;
+	                    } else if (!isExclude && comName !== v) {
+	                        isClose = false;
+	                    }
+	
+	                    if (isClose && sp.isOpen()) {
 	                        sp.close();
 	                    }
 	                });
-	                if (comName) {
-	                    _this2.serialport_list = _defineProperty({}, comName, _this2.serialport_list[comName]);
-	                    _this2.device_list = _defineProperty({}, comName, _this2.device_list[comName]);
+	                if (comName && isExclude) {
+	                    _this3.serialport_list = _defineProperty({}, comName, _this3.serialport_list[comName]);
+	                    _this3.device_list = _defineProperty({}, comName, _this3.device_list[comName]);
+	                } else if (comName) {
+	                    delete _this3.serialport_list[comName];
+	                    delete _this3.device_list[comName];
 	                } else {
-	                    _this2.serialport_list = {};
-	                    _this2.device_list = {};
+	                    _this3.serialport_list = {};
+	                    _this3.device_list = {};
 	                }
-	            }, 300);
+	            }, 150);
 	        }
 	    }, {
 	        key: 'write',
-	        value: function write(bytes) {
-	            var _this3 = this;
+	        value: function write(data) {
+	            var _this4 = this;
 	
-	            console.time(this.i);
-	            if (this.sp && this.sp.isOpen() && bytes && !this.sp.isSending) {
+	            if (this.sp && this.sp.isOpen() && data && !this.sp.isSending) {
 	                this.sp.isSending = true;
-	                this.sp.write(bytes, function () {
-	                    _this3.sp.drain(function () {
-	                        console.timeEnd(_this3.i++);
-	                        _this3.sp.isSending = false;
-	                    });
+	                this.sp.write(data, function () {
+	                    if (_this4.sp) {
+	                        _this4.sp.drain(function () {
+	                            if (_this4.sp) _this4.sp.isSending = false;
+	                        });
+	                    }
 	                });
 	            }
 	        }
@@ -568,7 +604,7 @@
 	        value: function open(_ref, options, callback) {
 	            var comName = _ref.comName;
 	
-	            var _this4 = this;
+	            var _this5 = this;
 	
 	            var _options = {};
 	            _options.autoOpen = options.autoOpen || options.AutoOpen || false;
@@ -593,31 +629,32 @@
 	                console.log('open');
 	            });
 	
+	            sp.on('error', function (e) {
+	                console.log('error');
+	                _this5.removeDevice(comName);
+	            });
+	
 	            sp.on('data', function (data) {
-	                if (_this4.extension.checkInitialData(data)) {
-	                    console.log('success ' + comName);
+	                if (_this5.extension.checkInitialData(data)) {
 	                    sp.removeAllListeners();
-	                    _this4.emit('openDevice', comName);
-	                } else {
-	                    console.log(data);
-	                    console.log('fail ' + comName);
+	                    _this5.emit('connectDevice', comName);
 	                }
 	            });
 	
 	            sp.on('disconnect', function (e) {
-	                delete _this4.serialport_list[comName];
-	                delete _this4.device_list[comName];
+	                // delete this.serialport_list[comName];
+	                // delete this.device_list[comName];
+	                _this5.removeDevice(comName);
 	            });
 	        }
 	    }, {
 	        key: 'startScan',
 	        value: function startScan(router, extension, config) {
-	            var _this5 = this;
+	            var _this6 = this;
 	
 	            this.extension = extension;
 	            this.emitter.emit('state', 'start');
 	            this.scanInterval = setInterval(function () {
-	                console.log('scan');
 	                _serialport2.default.list(function (e, devices) {
 	                    if (e) {
 	                        throw e;
@@ -637,39 +674,48 @@
 	
 	
 	                    devices.forEach(function (device) {
-	                        if (!_this5.device_list[device.comName]) {
-	                            _this5.emit('addDevice', device, hardware);
+	                        if (!_this6.device_list[device.comName]) {
+	                            _this6.emit('addDevice', device, hardware);
 	                        }
 	                    });
 	                });
-	            }, 2000);
+	            }, 1000);
 	        }
 	    }, {
 	        key: 'stopScan',
 	        value: function stopScan() {
+	            clearInterval(this.scanInterval);
 	            this.removeDevice();
 	            delete this.sp;
-	            console.log('stop');
 	        }
 	    }]);
 	
 	    return serial;
-	}();
-	
-	_util2.default.inherits(serial, _events.EventEmitter);
+	}(_events.EventEmitter);
 	
 	exports.default = new serial();
 
 /***/ },
+/* 5 */
+/***/ function(module, exports) {
 
-/***/ 6:
+	module.exports = require("path");
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = require("serialport");
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./neobot": 7,
-		"./neobot.js": 7,
-		"./neobot.json": 8,
-		"./neobot.png": 9
+		"./neobot": 8,
+		"./neobot.js": 8,
+		"./neobot.json": 9,
+		"./neobot.png": 10
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -682,12 +728,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 6;
+	webpackContext.id = 7;
 
 
 /***/ },
-
-/***/ 7:
+/* 8 */
 /***/ function(module, exports) {
 
 	function Module() {
@@ -810,7 +855,7 @@
 	
 		var checksum = 0;
 		var isFnd = false;
-		buffer.forEach(function (value, idx) {
+		buffer.forEach((value = 0, idx)=> {
 			if(idx === 6 && value > 0) {
 				isFnd = true;
 			} else if(idx === 7 && isFnd) {
@@ -824,6 +869,9 @@
 		//체크썸
 		requestData.push(checksum);
 	
+		if(requestData.length === 2) {
+			return null;
+		}
 		return requestData;
 	};
 	
@@ -834,8 +882,7 @@
 
 
 /***/ },
-
-/***/ 8:
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -863,27 +910,11 @@
 	};
 
 /***/ },
-
-/***/ 9:
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "71aeeb52209fe808c25907af7f8d2131.png";
 
-/***/ },
-
-/***/ 39:
-/***/ function(module, exports) {
-
-	module.exports = require("path");
-
-/***/ },
-
-/***/ 40:
-/***/ function(module, exports) {
-
-	module.exports = require("serialport");
-
 /***/ }
-
-/******/ });
+/******/ ]);
 //# sourceMappingURL=app.js.map

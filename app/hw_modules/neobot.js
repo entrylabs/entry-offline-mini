@@ -118,7 +118,7 @@ Module.prototype.requestLocalData = function() {
 
 	var checksum = 0;
 	var isFnd = false;
-	buffer.forEach(function (value, idx) {
+	buffer.forEach((value = 0, idx)=> {
 		if(idx === 6 && value > 0) {
 			isFnd = true;
 		} else if(idx === 7 && isFnd) {
@@ -132,6 +132,9 @@ Module.prototype.requestLocalData = function() {
 	//체크썸
 	requestData.push(checksum);
 
+	if(requestData.length === 2) {
+		return null;
+	}
 	return requestData;
 };
 
