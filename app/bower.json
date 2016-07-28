@@ -15,10 +15,12 @@
     "tests"
   ],
   "dependencies": {
+    "entryjs": "https://kimorkim@github.com/entrylabs/entryjs.git#issue/3963",
     "jquery": "~1.11.3",
     "PreloadJS": "0.6.0",
     "EaselJS": "https://github.com/boolgom/EaselJS.git",
     "SoundJS": "0.6.0",
-    "jquery-ui": "~1.11.x"
+    "jquery-ui": "~1.11.x",
+    "velocity": "~1.2.3"
   }
 }
