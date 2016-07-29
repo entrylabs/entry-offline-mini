@@ -47,10 +47,21 @@ Entry.HW.TRIAL_LIMIT = 1;
 var p = Entry.HW.prototype;
 
 p.initRouter = function() {
-
-    // router.on('state', (data)=> {
-    //     console.log(data);
-    // })
+    var $hwConnectBtn = $('.hwConnectBtn');
+    router.on('state', ({state})=> {
+        switch(state) {
+            case 'connectDevice': {
+                this.connected = true;
+                $hwConnectBtn.text('하드웨어 연결하기');
+                break;
+            }
+            case 'disconnect': {
+                this.connected = false;
+                $hwConnectBtn.text('하드웨어 연결하기');
+                break;
+            }
+        }
+    })
 
     router.on('local_data', (data)=> {
         this.checkDevice(data);
