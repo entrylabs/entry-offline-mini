@@ -29,12 +29,14 @@ $(document).ready(() => {
     hwConnectBtn.text('하드웨어 연결하기');
 
     hwConnectBtn.on('click', ()=> {
+        hwConnectBtn.removeClass('red green');
+        hwConnectBtn.addClass('yellow');
         if(!Entry.hw.connected) {
-            Entry.hw.startRouter();
-            hwConnectBtn.text('하드웨어 종료하는중');            
-        } else {
-            Entry.hw.stopRouter();
             hwConnectBtn.text('하드웨어 연결하는중');
+            Entry.hw.startRouter();
+        } else {
+            hwConnectBtn.text('하드웨어 종료하는중');            
+            Entry.hw.stopRouter();
         }
     });
 

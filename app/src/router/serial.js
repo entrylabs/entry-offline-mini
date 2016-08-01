@@ -16,7 +16,7 @@ class serial extends EventEmitter{
     init(router) {
         this.emitter = router;
         this.on('addDevice', (device, options)=> {
-            this.emitter.emit('state', 'addDevice');
+            this.emitter.emit('state', { state : 'addDevice' });
             this.device_list[device.comName] = device;
             this.open(device, options);
         });
@@ -27,7 +27,6 @@ class serial extends EventEmitter{
             this.removeDevice(comName, true);
             this.sp = this.serialport_list[comName];
             this.sp.on('data', data => {
-                // console.log(data);
                 this.emitter.emit('data', data);
             });
         });
@@ -113,16 +112,14 @@ class serial extends EventEmitter{
             }
         });
 
-        sp.on('disconnect', (e)=> {
-            // delete this.serialport_list[comName];
-            // delete this.device_list[comName];
+        sp.on('disconnectDevice', (e)=> {
             this.removeDevice(comName);
         });
     }
 
     startScan(router, extension, config) {
         this.extension = extension;
-        this.emitter.emit('state', 'start');
+        this.emitter.emit('state', { state : 'start' });
         this.scanInterval = setInterval(()=> {
             serialport.list((e, devices)=> {
                 if(e) {
@@ -145,7 +142,7 @@ class serial extends EventEmitter{
     stopScan() {
         clearInterval(this.scanInterval);
         this.removeDevice();
-        this.emitter.emit('state', { state: 'disconnect' });
+        this.emitter.emit('state', { state: 'disconnectDevice' });
         delete this.sp;
     }
 }
