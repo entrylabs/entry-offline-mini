@@ -12,6 +12,8 @@ class router extends EventEmitter{
         this.slaveTimer;
         this.local_data = {};
         this.is_connect = false;
+        this.lostTimer;
+        this.received = false;
     }
 
     init() {
@@ -20,7 +22,7 @@ class router extends EventEmitter{
             console.log(state);
             switch(state) {
                 case 'connectDevice': {
-                    this.is_connect = true;
+                    this.setConnect(true);
                     clearInterval(this.slaveTimer);
                     let {control, duration} = this.hardware;
                     if(control !== 'master' && duration) {
@@ -29,11 +31,33 @@ class router extends EventEmitter{
                             serial.write(data);
                         }, duration);
                     }
+
+                    this.lostTimer = setInterval(()=> {
+                        if(this.isConnect()) {
+                            if(this.received == false) {
+                                this.setConnect(false);
+                                this.emit('state', { state : 'lostDevice' });
+                                serial.removeDevice(serial.sp.path);
+                                this.startScan(this.config);
+                                // serial.emit('state', { state : 'removeDe' });
+                            }
+                            this.received = false;
+                        }
+                    }, 1000);
+
                     break;
                 }
-                case 'disconnect': {
-                    this.is_connect = false;
+
+                case 'disconnectDevice': {
+                    this.setConnect(false);
                     clearInterval(this.slaveTimer);
+                    clearInterval(this.lostTimer);
+                    break;
+                }
+
+                case 'lostDevice': {
+                    this.setConnect(false);
+                    break;
                 }
             }
         });
@@ -43,6 +67,7 @@ class router extends EventEmitter{
                 valid = this.extension.validateLocalData(data);
             }
             if(valid) {
+                this.received = true;
                 this.extension.handleLocalData(data);
                 this.extension.requestRemoteData(this.local_data);
                 this.emit('local_data', this.local_data);
@@ -61,6 +86,10 @@ class router extends EventEmitter{
         return this.is_connect;
     }
 
+    setConnect(state = false) {
+        this.is_connect = state;
+    }
+
     setDefaultLocalData(config) {
         let company = config.id.slice(0, 2);
         let model = config.id.slice(2, 4);
@@ -73,10 +102,12 @@ class router extends EventEmitter{
     }
 
     startScan(config) {
-        this.extension = require(`../../hw_modules/${config.module}`);
-        this.config = config;
-        this.hardware = config.hardware;
-        this.setDefaultLocalData(config);
+        if(!this.extension || (this.config && this.config.module !== config.module)) {
+            this.extension = require(`../../hw_modules/${config.module}`);
+            this.config = config;
+            this.hardware = config.hardware;
+            this.setDefaultLocalData(config);
+        }
         serial.startScan(this, this.extension, config);
     }
 

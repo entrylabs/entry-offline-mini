@@ -47,10 +47,37 @@ Entry.HW.TRIAL_LIMIT = 1;
 var p = Entry.HW.prototype;
 
 p.initRouter = function() {
+    var $hwConnectBtn;
+    router.on('state', ({state})=> {
+        if(!$hwConnectBtn) {
+            $hwConnectBtn = $('.hwConnectBtn');
+        }
+        switch(state) {
+            case 'connectDevice': {
+                this.connected = true;
+                $hwConnectBtn.text('하드웨어 종료하기');
+                $hwConnectBtn.removeClass('yellow red');
+                $hwConnectBtn.addClass('green');
+                break;
+            }
 
-    // router.on('state', (data)=> {
-    //     console.log(data);
-    // })
+            case 'disconnectDevice': {
+                this.connected = false;
+                $hwConnectBtn.text('하드웨어 연결하기');
+                $hwConnectBtn.removeClass('yellow green');
+                $hwConnectBtn.addClass('red');
+                break;
+            }
+
+            case 'lostDevice': {
+                this.connected = false;
+                $hwConnectBtn.text('하드웨어 연결하는중');
+                $hwConnectBtn.removeClass('green red');
+                $hwConnectBtn.addClass('yellow');
+                break;
+            }
+        }
+    })
 
     router.on('local_data', (data)=> {
         this.checkDevice(data);

@@ -1,6 +1,6 @@
 $(document).ready(() => {
-
     var container = $('#header');
+    var dropdownList = [];
 
     var logoDiv = Entry.Dom('div', {
         parent: container,
@@ -24,9 +24,21 @@ $(document).ready(() => {
 
     var hwConnectBtn = Entry.Dom('button', {
         parent: hwDiv,
-        class: 'hwConnectBtn'
+        classes: ['hwConnectBtn', 'red']
     });
     hwConnectBtn.text('하드웨어 연결하기');
+
+    hwConnectBtn.on('click', ()=> {
+        hwConnectBtn.removeClass('red green');
+        hwConnectBtn.addClass('yellow');
+        if(!Entry.hw.connected) {
+            hwConnectBtn.text('하드웨어 연결하는중');
+            Entry.hw.startRouter();
+        } else {
+            hwConnectBtn.text('하드웨어 종료하는중');            
+            Entry.hw.stopRouter();
+        }
+    });
 
     // 버튼 텍스트를 '연결하기,연결중,연결끊기'로 해도 좋을듯.
     // 버튼색상을 상태에 따라 신호등으로 바꾸는것도. 일단, 공간 확보.
@@ -51,7 +63,8 @@ $(document).ready(() => {
         id: 'newButton',
         class: 'dropbtn'
     });
-    newButton.click(function() {
+
+    newButton.click(()=> {
         document.getElementById("newMenuListDiv").classList.toggle("show");
         document.getElementById("saveMenuListDiv").classList.remove("show");
     });
@@ -65,19 +78,21 @@ $(document).ready(() => {
         parent: newMenuListDiv,
         class: 'link-item'
     });
+
     newMenuItemInit.html("새로 만들기");
-    newMenuItemInit.click(function() {
+    newMenuItemInit.click(()=> {
         console.log('TODO: 새로만들기 클릭!');
     });
+
     var newMenuItemOpen = Entry.Dom('a', {
         parent: newMenuListDiv,
         class: 'link-item'
     });
+
     newMenuItemOpen.html("불러 오기");
-    newMenuItemOpen.click(function() {
+    newMenuItemOpen.click(()=> {
         console.log('TODO: 불러오기 클릭!');
     });
-
 
     // Save Menu
     var saveMenu = Entry.Dom('div', {
@@ -90,29 +105,35 @@ $(document).ready(() => {
         id: 'saveButton',
         class: 'dropbtn'
     });
-    saveButton.click(function() {
+
+    saveButton.click(()=> {
         document.getElementById("newMenuListDiv").classList.remove("show");
         document.getElementById("saveMenuListDiv").classList.toggle("show");
     });
+
     var saveMenuListDiv = Entry.Dom('div', {
         parent: newMenu,
         id: 'saveMenuListDiv',
         class: 'dropdown-content'
     });
+
     var saveMenuItemSave = Entry.Dom('a', {
         parent: saveMenuListDiv,
         class: 'link-item'
     });
+
     saveMenuItemSave.html("저장하기");
-    saveMenuItemSave.click(function() {
+    saveMenuItemSave.click(()=> {
         console.log('TODO: 저장하기 클릭!');
     });
+
     var saveMenuItemSaveAs = Entry.Dom('a', {
         parent: saveMenuListDiv,
         class: 'link-item'
     });
+
     saveMenuItemSaveAs.html("복사본으로 저장하기");
-    saveMenuItemSaveAs.click(function() {
+    saveMenuItemSaveAs.click(()=> {
         console.log('TODO: 복사본으로 저장하기 클릭!');
     });
 
@@ -122,7 +143,8 @@ $(document).ready(() => {
         id: 'undoButton',
         class: 'toolbarIconButton'
     });
-    undoButton.click(function() {
+
+    undoButton.click(()=> {
         console.log('TODO: UNDO 클릭!');
     });
 
@@ -131,22 +153,16 @@ $(document).ready(() => {
         id: 'redoButton',
         class: 'toolbarIconButton'
     });
-    redoButton.click(function() {
+
+    redoButton.click(()=> {
         console.log('TODO: REDO 클릭!');
     });
 
+    var $dropdowns = $(".dropdown-content");
     // remove dropdown menu on click
-    window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
+    $(document).on('click', (e)=> {
+        if(!$(e.target).is('.dropbtn')) {
+            $dropdowns.removeClass('show');
         }
-    }
-
+    });
 });
