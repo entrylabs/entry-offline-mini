@@ -3,7 +3,7 @@
 $(document).ready(() => {
     let initOption = {
         type: 'workspace',
-        libDir: '../app/bower_components',
+        libDir: './bower_components',
         objectaddable: false,
         objecteditable: false,
         soundeditable: false,
@@ -83,7 +83,33 @@ $(document).ready(() => {
     } else {
         project = Entry.getStartProject(Entry.mediaFilePath);
         project.objects[0].script[0].pop();
+        project.objects[0].script[0][0].type = "neobot_when_run_button_click";
     }
     Entry.loadProject(project);
 
+    window.onbeforeunload = (e)=> {
+        let hardClose = true;
+        if(util.isSavingProject) {
+            hardClose = confirm(`${Lang.Workspace.quit_stop_msg} 그래도 종료하시겠습니까?`);
+            if(!hardClose) {
+                e.preventDefault();
+                e.returnValue = false;
+                return;
+            }
+        }
+
+        if(!Entry.stateManager.isSaved()) {
+            hardClose = confirm(Lang.Menus.save_dismiss);
+        }
+
+        if(hardClose) {
+            Entry.plugin.closeAboutPage();
+            Entry.plugin.closeHwGuidePage();
+        } else {
+            util.hidePopup();
+            e.preventDefault();
+            e.returnValue = false;
+            return;
+        }
+    }
 });

@@ -12,10 +12,12 @@
     "yaeti": "0.0.5"
   },
   "description": "entry-offline-mini version",
+  "license": "Apache2.0",
+  "homepage": "https://github.com/entrylabs/entry-offline-mini#readme",
   "author": "EntryLabs",
   "main": "main.js",
-  "name": "Entry-Mini",
-  "productName": "Entry-Mini",
+  "name": "Entry_Mini",
+  "productName": "Entry Mini",
   "repository": {
     "type": "git",
     "url": "git+https://kimorkim@github.com/entrylabs/entry-offline-mini.git"

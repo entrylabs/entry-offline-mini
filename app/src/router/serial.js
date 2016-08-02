@@ -102,7 +102,7 @@ class serial extends EventEmitter{
 
         sp.on('error', (e)=> {
             console.log('error');
-            this.removeDevice(comName);
+            // this.removeDevice(comName);
         });
 
         sp.on('data', (data)=> {

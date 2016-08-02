@@ -4,7 +4,6 @@ require('./hw.js');
 $(document).ready(() => {
     var container = $('#header');
     var domList;
-    console.log('hhhhhhhh');
     var headerDomList = [{
         name: 'logoDiv',
         tagName: 'div',

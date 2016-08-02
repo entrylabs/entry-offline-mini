@@ -26,7 +26,6 @@ class Util {
 
     setProjectName(name) {
         this.projectName = name;
-
     }
 
     getProjectName(name) {

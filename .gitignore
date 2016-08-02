@@ -3,3 +3,4 @@ app/builds/
 node_modules/
 app/npm-debug.log
 app/temp/
+dist/
