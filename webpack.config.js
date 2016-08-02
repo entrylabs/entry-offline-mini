@@ -14,7 +14,9 @@ module.exports = {
         filename: '[name].js'
     },
     externals: [
-        {'serialport': 'require("serialport")'}
+        {'serialport': 'require("serialport")'},
+        {'fstream': 'require("fstream")'},
+        {'tar-fs': 'require("tar-fs")'},
     ],
     target: "electron",
     module: {
