@@ -1,4 +1,4 @@
-require('./hw.js');
+"use strict";
 
 $(document).ready(() => {
     let initOption = {
@@ -71,8 +71,19 @@ $(document).ready(() => {
     };
 
     Entry.init(document.getElementById('workspace'), initOption)
-
+    
     Entry.enableArduino();
-    Entry.loadProject();
+
+    let project = sessionStorage.getItem('loadProject') || localStorage.getItem('localStorageProject');
+    if(project) {
+        project = JSON.parse(project);
+        sessionStorage.removeItem('loadProject');
+        localStorage.removeItem('localStorageProject');
+        util.setProjectName(project.name);
+    } else {
+        project = Entry.getStartProject(Entry.mediaFilePath);
+        project.objects[0].script[0].pop();
+    }
+    Entry.loadProject(project);
 
 });

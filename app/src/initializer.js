@@ -4,6 +4,8 @@ require('../css/fonts.less');
 require('../css/develop.less');
 require('../css/header.less');
 require('../bower_components/velocity/velocity.min.js');
+import util from './util';
+window.util = util;
 
 function init(){
     if(!localStorage.getItem('lang')) {

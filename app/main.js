@@ -82,9 +82,9 @@ app.once('ready', () => {
     let title = version;
     
     if(language === 'ko') {
-        title = '엔트리 v' + title;
+        title = '엔트리 미니 v' + title;
     } else {
-        title = 'Entry v' + title;
+        title = 'Entry Mini v' + title;
     }
 
     mainWindow = new BrowserWindow({
@@ -126,4 +126,19 @@ app.once('ready', () => {
         mainWindow.webContents.openDevTools();
     });
 
+
+});
+
+
+/**
+* event area
+*
+*/
+
+ipcMain.on('reload', (event, arg)=> {
+    mainWindow.reload(true);
+});
+
+ipcMain.on('dirname', (event)=> {
+    event.returnValue = __dirname;
 });
