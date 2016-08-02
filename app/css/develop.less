@@ -101,7 +101,7 @@ body {
     background-color: #fff;
     height: 100%;
     width: 6px;
-    display: inline-block;  
+    display: inline-block;
     -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
     animation: sk-stretchdelay 1.2s infinite ease-in-out;
 }
@@ -127,15 +127,15 @@ body {
 }
 
 @-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
   20% { -webkit-transform: scaleY(1.0) }
 }
 
 @keyframes sk-stretchdelay {
-  0%, 40%, 100% { 
+  0%, 40%, 100% {
     transform: scaleY(0.4);
     -webkit-transform: scaleY(0.4);
-  }  20% { 
+  }  20% {
     transform: scaleY(1.0);
     -webkit-transform: scaleY(1.0);
   }
@@ -164,5 +164,30 @@ body {
 
     .entryWorkspaceBlockMenu {
         top: 0;
+    }
+}
+
+#entryBlockHelperContentWorkspace {
+    top: 0;
+}
+
+#entryBlockHelperDescriptionWorkspace {
+    padding: 0;
+    div {
+        padding: 0 10px 0 25px;
+        text-align: left;
+        ul {
+            padding-top: 10px;
+            padding-left: 0;
+        }
+        span {
+            font-weight: bold;
+            line-height: 40px;
+        }
+        img {
+            display: block;
+            padding: 0;
+            border: 1px solid #ccc;
+        }
     }
 }
