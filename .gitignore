@@ -2,3 +2,4 @@ app/bower_components/
 app/builds/
 node_modules/
 app/npm-debug.log
+app/temp/
