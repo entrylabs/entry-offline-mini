@@ -48,32 +48,34 @@ var p = Entry.HW.prototype;
 
 p.initRouter = function() {
     var $hwConnectBtn;
+    var $hwStatusDiv;
     router.on('state', ({state})=> {
         if(!$hwConnectBtn) {
             $hwConnectBtn = $('.hwConnectBtn');
+            $hwStatusDiv = $('.hwStatusDiv');
         }
         switch(state) {
             case 'connectDevice': {
                 this.connected = true;
                 $hwConnectBtn.text('하드웨어 종료하기');
-                $hwConnectBtn.removeClass('yellow red');
-                $hwConnectBtn.addClass('green');
+                $hwStatusDiv.removeClass('yellow red');
+                $hwStatusDiv.addClass('green');
                 break;
             }
 
             case 'disconnectDevice': {
                 this.connected = false;
                 $hwConnectBtn.text('하드웨어 연결하기');
-                $hwConnectBtn.removeClass('yellow green');
-                $hwConnectBtn.addClass('red');
+                $hwStatusDiv.removeClass('yellow green');
+                $hwStatusDiv.addClass('red');
                 break;
             }
 
             case 'lostDevice': {
                 this.connected = false;
                 $hwConnectBtn.text('하드웨어 연결하는중');
-                $hwConnectBtn.removeClass('green red');
-                $hwConnectBtn.addClass('yellow');
+                $hwStatusDiv.removeClass('green red');
+                $hwStatusDiv.addClass('yellow');
                 break;
             }
         }

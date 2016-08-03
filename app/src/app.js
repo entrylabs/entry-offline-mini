@@ -103,8 +103,8 @@ $(document).ready(() => {
         }
 
         if(hardClose) {
-            Entry.plugin.closeAboutPage();
-            Entry.plugin.closeHwGuidePage();
+            // Entry.plugin.closeAboutPage();
+            // Entry.plugin.closeHwGuidePage();
         } else {
             util.hidePopup();
             e.preventDefault();

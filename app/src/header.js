@@ -33,26 +33,41 @@ $(document).ready(() => {
             }
         }
     }, {
-        name: 'hwDiv',
+        name: 'toolbarDiv',
         tagName: 'div',
         option: {
             parent: container,
+            class: 'toolbarDiv'
+        }
+    }, {
+        name: 'hwDiv',
+        tagName: 'div',
+        option: {
+            parent: 'toolbarDiv',
             class: 'hwDiv'
+        }
+    },  {
+        name: 'hwStatusDiv',
+        tagName: 'div',
+        option: {
+            parent: 'hwDiv',
+            classes: ['hwStatusDiv', 'red']
         }
     }, {
         name: 'hwConnectBtn',
-        tagName: 'button',
+        tagName: 'span',
         option: {
             parent: 'hwDiv',
-            classes: ['hwConnectBtn', 'red']
+            class: 'hwConnectBtn',
         },
         text: '하드웨어 연결하기',
         event: {
             type: 'click',
             func: (e) => {
+                const hwStatusDiv = domList['hwStatusDiv'];
                 const hwConnectBtn = domList['hwConnectBtn'];
-                hwConnectBtn.removeClass('red green');
-                hwConnectBtn.addClass('yellow');
+                hwStatusDiv.removeClass('red green');
+                hwStatusDiv.addClass('yellow');
                 if(!Entry.hw.connected) {
                     hwConnectBtn.text('하드웨어 연결하는중');
                     Entry.hw.startRouter();
@@ -63,18 +78,11 @@ $(document).ready(() => {
             }
         }
     }, {
-        name: 'hwStatusDiv',
+        name: 'menuDiv',
         tagName: 'div',
         option: {
-            parent: 'hwDiv',
-            class: 'hwStatusDiv'
-        }
-    }, {
-        name: 'toolbarDiv',
-        tagName: 'div',
-        option: {
-            parent: container,
-            class: 'toolbarDiv'
+            parent: 'toolbarDiv',
+            class: 'menuDiv'
         }
     }, {
         name: 'newMenu',
