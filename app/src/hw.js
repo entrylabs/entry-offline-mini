@@ -248,13 +248,13 @@ p.removePortReadable = function(port) {
 
 p.update = function() {
     if(router.isConnect()) {
+        if(Entry.engine.state === 'run') {
             router.isSendState = true;
-        // if(Entry.engine.state === 'run') {
-        // } else if(Entry.engine.state === 'stop') {
-        //     setTimeout(() => {
-        //         router.isSendState = false;
-        //     }, 500);
-        // }
+        } else if(Entry.engine.state === 'stop') {
+            setTimeout(() => {
+                router.isSendState = false;
+            }, 600);
+        }
         router.emit('remoteData', this.sendQueue);
     }
 };

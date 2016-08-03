@@ -16,7 +16,8 @@
 	"hardware": {
 		"pnpId" : "PID",
 		"type": "bluetooth",
-		"control": "master",
+		"control": "slave",
+		"duration": 60,
 		"vendor": "neobot",
 		"baudRate": 115200
 	}

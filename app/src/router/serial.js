@@ -67,7 +67,7 @@ class serial extends EventEmitter{
     write(data) {
         if(this.sp && this.sp.isOpen() && data && !this.sp.isSending) {
             this.sp.isSending = true;
-            console.log(data);
+            // console.log(data);
             this.sp.write(data, ()=> {
                 if(this.sp) {
                     this.sp.drain(()=> {
