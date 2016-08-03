@@ -10,10 +10,11 @@ class router extends EventEmitter{
         this.config;
         this.hardware;
         this.slaveTimer;
-        this.local_data = {};
-        this.is_connect = false;
+        this.localData = {};
+        this.isConnectState = false;
         this.lostTimer;
         this.received = false;
+        this.isSendState = false;
     }
 
     init() {
@@ -27,8 +28,10 @@ class router extends EventEmitter{
                     let {control, duration} = this.hardware;
                     if(control !== 'master' && duration) {
                         this.slaveTimer = setInterval(()=> {
-                            let data = this.extension.requestLocalData();
-                            serial.write(data);
+                            if(this.isSendState) {
+                                let data = this.extension.requestLocalData();
+                                serial.write(data);
+                            }
                         }, duration);
                     }
 
@@ -39,7 +42,6 @@ class router extends EventEmitter{
                                 this.emit('state', { state : 'lostDevice' });
                                 serial.removeDevice(serial.sp.path);
                                 this.startScan(this.config);
-                                // serial.emit('state', { state : 'removeDe' });
                             }
                             this.received = false;
                         }
@@ -69,32 +71,34 @@ class router extends EventEmitter{
             if(valid) {
                 this.received = true;
                 this.extension.handleLocalData(data);
-                this.extension.requestRemoteData(this.local_data);
-                this.emit('local_data', this.local_data);
+                this.extension.requestRemoteData(this.localData);
+                this.emit('localData', this.localData);
             }
             if(this.hardware.control === 'master') {
-                let data = this.extension.requestLocalData();
-                serial.write(data);
+                if(this.isSendState) {
+                    let data = this.extension.requestLocalData();
+                    serial.write(data);
+                }
             }
         });
-        this.on('remote_data', (data)=> {
+        this.on('remoteData', (data)=> {
             this.extension.handleRemoteData(data);
         });
     }
 
     isConnect() {
-        return this.is_connect;
+        return this.isConnectState;
     }
 
     setConnect(state = false) {
-        this.is_connect = state;
+        this.isConnectState = state;
     }
 
     setDefaultLocalData(config) {
         let company = config.id.slice(0, 2);
         let model = config.id.slice(2, 4);
         let version = config.id.slice(4, 6);
-        this.local_data = {
+        this.localData = {
             company: parseInt(company, 16) & 0xff,
             version: parseInt(version, 16) & 0xff,
             model: parseInt(model, 16) & 0xff

@@ -79,12 +79,12 @@ p.initRouter = function() {
                 break;
             }
         }
-    })
+    });
 
-    router.on('local_data', (data)=> {
+    router.on('localData', (data)=> {
         this.checkDevice(data);
         this.updatePortData(data);
-    })
+    });
 
     router.init();
 }
@@ -247,9 +247,15 @@ p.removePortReadable = function(port) {
 }
 
 p.update = function() {
-    // this.socket.send(JSON.stringify(this.sendQueue));
     if(router.isConnect()) {
-        router.emit('remote_data', this.sendQueue);
+            router.isSendState = true;
+        // if(Entry.engine.state === 'run') {
+        // } else if(Entry.engine.state === 'stop') {
+        //     setTimeout(() => {
+        //         router.isSendState = false;
+        //     }, 500);
+        // }
+        router.emit('remoteData', this.sendQueue);
     }
 };
 
