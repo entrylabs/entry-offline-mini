@@ -27,6 +27,7 @@ class serial extends EventEmitter{
             this.removeDevice(comName, true);
             this.sp = this.serialport_list[comName];
             this.sp.on('data', data => {
+                // console.log(data);
                 this.emitter.emit('data', data);
             });
         });
@@ -66,6 +67,7 @@ class serial extends EventEmitter{
     write(data) {
         if(this.sp && this.sp.isOpen() && data && !this.sp.isSending) {
             this.sp.isSending = true;
+            console.log(data);
             this.sp.write(data, ()=> {
                 if(this.sp) {
                     this.sp.drain(()=> {
@@ -73,6 +75,8 @@ class serial extends EventEmitter{
                     });
                 }
             });
+        } else {
+            // console.log('draing');
         }
     }
 
@@ -102,7 +106,7 @@ class serial extends EventEmitter{
 
         sp.on('error', (e)=> {
             console.log('error');
-            // this.removeDevice(comName);
+            this.removeDevice(comName);
         });
 
         sp.on('data', (data)=> {

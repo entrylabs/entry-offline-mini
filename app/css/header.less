@@ -1,7 +1,8 @@
 #header {
     background-color: #5096f5;
     width: 100%;
-    height: 40px;
+    height: 55px;
+    padding: 7px;
 }
 
 .logoDiv {
@@ -25,42 +26,61 @@
     }
 }
 
-.hwDiv {
-    float: left;
-    margin-top: 5px;
-    margin-left: 10px;
-    .hwConnectBtn {
-        float: left;
-        display: inline-block;
-        border: 0;
-        width: 150px;
-        height: 29px;
-        padding: 3px;
-        color: #fff;
-        background-color: #6e5ae6;
-        border-radius: 3px;
-        font-size: 14px;
-        cursor: hand;
-    }
-    .hwConnectBtn.red {
-        background-color: red;
-    }
-    .hwConnectBtn.yellow {
-        background-color: yellow;
-    }
-    .hwConnectBtn.green {
-        background-color: green;
-    }
-
-    .hwStatusDiv {
-        width: 150px;
-    }
-}
-
 .toolbarDiv {
     float: right;
     margin-top: 3px;
     margin-right: 60px;
+
+    .hwDiv {
+        float: left;
+        margin-top: 1px;
+        cursor: hand;
+        background-color: #fff;
+        border-radius: 16px;
+
+        .hwConnectBtn {
+            float: left;
+            display: inline-block;
+            border: 0;
+            height: 32px;
+            color: #5096f5;        
+            font-size: 14px;   
+            line-height: 32px;
+            text-align: center;   
+            margin-left: 10px;
+            margin-right: 15px;
+        }
+
+        .hwStatusDiv.red {
+            background-color: red;
+        }
+        .hwStatusDiv.yellow {
+            background-color: yellow;
+        }
+        .hwStatusDiv.green {
+            background-color: green;
+        }
+
+        .hwStatusDiv {
+            float: left;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            line-height: 32px;
+            margin-top: 8px;
+            margin-left: 15px;
+            border-radius: 7px;
+            border: 1px solid;
+        }
+    }
+
+    .menuDiv {
+        display: inline-block;
+        width: 1px;
+        height: 30px;
+        background: white;
+        margin-left: 10px;
+    }
 
     #newButton {
         background-image: url('../images/newButtonIcon.png');

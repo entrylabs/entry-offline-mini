@@ -20,6 +20,9 @@ function Module() {
 		'FND',
 		'OPT'
 	];
+
+	this.lastSendBuffer = '[]';
+	this.passCount = 0;
 }
 
 Module.prototype.init = function(handler, config) {
@@ -111,7 +114,15 @@ Module.prototype.handleRemoteData = function(handler) {
 Module.prototype.requestLocalData = function() {
 	var requestData = [];
 	var buffer = this.localBuffer;
-
+	var stringBuffer = JSON.stringify(buffer);
+	// if(this.lastSendBuffer === stringBuffer) {
+	// 	return null;
+	// }
+	// if(this.passCount > 5) {
+	// 	this.lastSendBuffer = stringBuffer; 
+	// 	this.passCount = 0;
+	// }
+	// this.passCount++;
 	// 시작 바이트
 	requestData.push(0xCD);
 	requestData.push(0xAB);
@@ -132,7 +143,7 @@ Module.prototype.requestLocalData = function() {
 	//체크썸
 	requestData.push(checksum);
 
-	if(requestData.length === 2) {
+	if(requestData.length <= 3) {
 		return null;
 	}
 	return requestData;
